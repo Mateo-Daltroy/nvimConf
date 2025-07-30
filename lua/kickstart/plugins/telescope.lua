@@ -107,7 +107,17 @@ return {
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
-    end,
+
+      -- Telescope buscar archivos en el repo de obsidian
+      vim.keymap.set('n', '<space>fo', function()
+        if vim.fn.expand '%' ~= '' then
+          vim.cmd 'w'
+        end
+        require('telescope.builtin').find_files {
+          cwd = '', -- TODO: Agregar el path de obsidian
+        }
+      end)
+    end, -- end de la funcion config
   },
 }
 -- vim: ts=2 sts=2 sw=2 et
