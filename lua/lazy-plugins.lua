@@ -29,6 +29,8 @@ require('lazy').setup({
 
   require 'kickstart.plugins.telescope',
 
+  require 'plugins.javanvim',
+
   require 'kickstart.plugins.lspconfig',
 
   require 'kickstart.plugins.conform',
