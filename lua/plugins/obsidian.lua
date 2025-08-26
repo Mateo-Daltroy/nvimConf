@@ -17,21 +17,19 @@ return {
 
     -- see below for full list of optional dependencies 👇
   },
-  --[[
   opts = {
     workspaces = {
       {
         name = 'Main',
-        path = '', -- TODO: path de Main
+        path = '~/Obsidian/Main/', -- TODO: path de Main
       },
       {
         name = 'Editable',
-        path = '', -- TODO: path de Editable
+        path = '~/Obsidian/Editable/', -- TODO: path de Editable
       },
     },
 
     ui = { enable = false },
   },
-  --]]
   vim.keymap.set('n', '<space>b', ':ObsidianBacklinks<CR>', { desc = 'Muestra los backlinks' }),
 }

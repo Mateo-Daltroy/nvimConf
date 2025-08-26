@@ -114,7 +114,7 @@ return {
           vim.cmd 'w'
         end
         require('telescope.builtin').find_files {
-          cwd = '', -- TODO: Agregar el path de obsidian
+          cwd = '~/Obsidian/Editable/', -- TODO: Agregar el path de obsidian
         }
       end)
     end, -- end de la funcion config
