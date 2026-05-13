@@ -1,4 +1,4 @@
--- NOTE: Plugins can specify dependencies.
+-- NOTE: Plugins can specify dependencies.teles
 --
 -- The dependencies are proper plugin specifications as well - anything
 -- you do for a plugin at the top level, you can do for a dependency.
@@ -80,6 +80,7 @@ return {
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sa', builtin.git_status, { desc = '[S]earch by st[A]tus' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
@@ -109,12 +110,12 @@ return {
       end, { desc = '[S]earch [N]eovim files' })
 
       -- Telescope buscar archivos en el repo de obsidian
-      vim.keymap.set('n', '<space>fo', function()
+      vim.keymap.set('n', '<leader>so', function()
         if vim.fn.expand '%' ~= '' then
           vim.cmd 'w'
         end
         require('telescope.builtin').find_files {
-          cwd = '~/Obsidian/Editable/', -- TODO: Agregar el path de obsidian
+          cwd = '~/Obsidian/Editable/',
         }
       end)
     end, -- end de la funcion config

@@ -31,5 +31,5 @@ return {
 
     ui = { enable = false },
   },
-  vim.keymap.set('n', '<space>b', ':ObsidianBacklinks<CR>', { desc = 'Muestra los backlinks' }),
+  vim.keymap.set('n', '<space>sb', ':ObsidianBacklinks<CR>', { desc = 'Muestra los backlinks' }),
 }

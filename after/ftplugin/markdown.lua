@@ -2,6 +2,7 @@ local set = vim.opt_local
 
 set.number = false
 set.relativenumber = false
+set.shiftwidth = 2
 
 vim.opt.wrap = true -- Line Wrap
 vim.opt.linebreak = true -- Las palabras no quedan por la mitad
@@ -10,6 +11,9 @@ vim.opt.breakindent = true -- Indent en wrapped lines
 -- Moverse en cuanto a las lineas visuales, no las reales
 vim.keymap.set('n', 'j', 'gj', { noremap = true, silent = true })
 vim.keymap.set('n', 'k', 'gk', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>z', function()
+  vim.cmd 'ZenMode'
+end, { desc = 'Toggles zen mode' })
 
 vim.schedule(function()
   -- Enable ZenMode when opening Markdown

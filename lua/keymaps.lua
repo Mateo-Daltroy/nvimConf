@@ -1,6 +1,13 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- Mis keybindings personales
+vim.keymap.set('n', 'gb', '<C-t>') -- Volver para atras cuando buscas una definicion
+vim.keymap.set('n', '<leader>e', ':Ex<CR>') -- Ir al file explorer de nvim
+vim.keymap.set('n', '<leader>w', ':w<CR>')
+
+-- Fin de keybindings personales
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -50,5 +57,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.hl.on_yank()
   end,
 })
-
 -- vim: ts=2 sts=2 sw=2 et

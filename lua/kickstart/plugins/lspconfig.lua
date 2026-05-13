@@ -98,7 +98,17 @@ return {
           -- Jump to the definition of the word under your cursor.
           --  This is where a variable was first declared, or where a function is defined, etc.
           --  To jump back, press <C-t>.
-          map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+
+          --map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+
+          map('gd', function()
+            local clients = vim.lsp.get_clients { bufnr = event.buf }
+            if #clients > 0 then
+              require('telescope.builtin').lsp_definitions()
+            else
+              vim.cmd 'normal! gd'
+            end
+          end, 'Smart Go To Definition')
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.
@@ -175,7 +185,7 @@ return {
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config {
         severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
+        float = { border = 'rounded', source = 'always' }, -- if_many
         underline = { severity = vim.diagnostic.severity.ERROR },
         signs = vim.g.have_nerd_font and {
           text = {
@@ -185,7 +195,8 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = {
+        virtual_text = false,
+        --[[{
           source = 'if_many',
           spacing = 2,
           format = function(diagnostic)
@@ -197,8 +208,29 @@ return {
             }
             return diagnostic_message[diagnostic.severity]
           end,
-        },
+        }, ]]
       }
+
+      vim.api.nvim_create_autocmd('CursorHold', {
+        callback = function()
+          -- Do not override hover windows
+          for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local config = vim.api.nvim_win_get_config(win)
+            if config.relative ~= '' and config.zindex == 50 then
+              return
+            end
+          end
+
+          -- Only show diagnostics if they exist on the line
+          local diagnostics = vim.diagnostic.get(0, {
+            lnum = vim.fn.line '.' - 1,
+          })
+
+          if #diagnostics > 0 then
+            vim.diagnostic.open_float(nil, { focus = false })
+          end
+        end,
+      })
 
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
@@ -217,7 +249,6 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -229,6 +260,7 @@ return {
         -- ts_ls = {},
         --
 
+        gopls = {},
         lua_ls = {
           -- cmd = { ... },
           -- filetypes = { ... },
@@ -243,7 +275,7 @@ return {
             },
           },
         },
-        jdtls = {},
+        jdtls = {}, -- java lsp
       }
 
       -- Ensure the servers and tools above are installed
