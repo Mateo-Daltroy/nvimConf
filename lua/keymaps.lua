@@ -5,6 +5,7 @@
 vim.keymap.set('n', 'gb', '<C-t>') -- Volver para atras cuando buscas una definicion
 vim.keymap.set('n', '<leader>e', ':Ex<CR>') -- Ir al file explorer de nvim
 vim.keymap.set('n', '<leader>w', ':w<CR>')
+vim.keymap.set('n', '<leader>st', ':TodoTelescope<CR>')
 
 -- Fin de keybindings personales
 
