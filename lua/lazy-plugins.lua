@@ -57,6 +57,9 @@ require('lazy').setup({
   -- Cualquier plugin que instales, recomiendo que sea en esa carpeta tambien
   { import = 'plugins' },
 
+  -- Este es el directorio que sigue tu theme, por motivos de compatibilidad con todos los sistemas, elegi ponerlo en el .git_ignore
+  { import = 'theme' },
+
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
